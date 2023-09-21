@@ -9,9 +9,9 @@ window.addEventListener("load", () => {
 
     passwordField.addEventListener("input", () => {
         if(passwordField.value.length > 8) {
-            document.querySelector("#password").classList.add("lime-bg");
+            document.querySelector("body").style.background = "lime";
         } else {
-            document.querySelector("#password").classList.remove("lime-bg");
+            document.querySelector("body").style.background = "red";
         }
     })
 });
