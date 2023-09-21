@@ -4,16 +4,22 @@ let complexityPoints = 0;
 
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
+    initScript();
 }
 
 window.addEventListener("load", () => {
+    initScript();
+});
+
+// Fonction pour intiliser le script (ainsi l'initialisation est commune à la partie web et à la partie mobile (native))
+function initScript() {
     let passwordField = document.querySelector("#password");
 
     passwordField.addEventListener("input", () => {
         calculateLengthPoints(passwordField.value);
         modifyBgColor();
     })
-});
+}
 
 // Fonction pour calculer la complexité selon sa longueur
 function calculateLengthPoints(password) {
@@ -36,13 +42,19 @@ function calculateLengthPoints(password) {
 function modifyBgColor() {
     switch (true) {
         case (complexityPoints === 1) :
-            document.querySelector("body").style.background = "orange";
+            document.querySelector("body").classList.add("orange_gradient");
+            document.querySelector("body").classList.remove("green_gradient");
+            document.querySelector("body").classList.remove("red_gradient");
             break;
         case (complexityPoints > 1) :
-            document.querySelector("body").style.background = "lime";
+            document.querySelector("body").classList.add("green_gradient");
+            document.querySelector("body").classList.remove("orange_gradient");
+            document.querySelector("body").classList.remove("red_gradient");
             break;
         default :
-            document.querySelector("body").style.background = "red";
+            document.querySelector("body").classList.add("red_gradient");
+            document.querySelector("body").classList.remove("orange_gradient");
+            document.querySelector("body").classList.remove("green_gradient");
             break;
     }
 }
