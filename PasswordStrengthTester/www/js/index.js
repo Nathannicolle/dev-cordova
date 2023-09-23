@@ -1,7 +1,4 @@
 document.addEventListener('deviceready', onDeviceReady, false);
-
-let complexityPoints = 0;
-
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
     initScript();
@@ -16,37 +13,65 @@ function initScript() {
     let passwordField = document.querySelector("#password");
 
     passwordField.addEventListener("input", () => {
+        let complexityPoints = 0;
+
         calculateLengthPoints(passwordField.value);
+        calculateSpecialCharactersPoints(passwordField.value);
+        calculateCasePoints(passwordField.value);
+        calculNumberPoints(passwordField.value);
         modifyBgColor();
+        console.log(complexityPoints);
     })
 }
 
 // Fonction pour calculer la complexité selon sa longueur
 function calculateLengthPoints(password) {
-    switch (true) {
-        case (password.length > 8 && password.length <= 10) :
-            complexityPoints++;
-            break;
-        case (password.length > 10) :
-            complexityPoints += password.length / 2;
-            break;
-        default :
-            complexityPoints = 0;
-            break;
+    if(password.length > 8) {
+        complexityPoints++;
+    } else {
+        complexityPoints = 0;
     }
 
     return complexityPoints;
 }
 
+// Fonction pour calculer la complexité selon la présence ou non de caractères spéciaux
+function calculateSpecialCharactersPoints(password) {
+    if(/[~@#_^*%.+:;=€$\\/]{1,}/gm.test(password)) {
+        return complexityPoints++;
+    }
+
+    return complexityPoints;
+}
+
+// Fonction pour calculer la complexité selon la présence ou non de majuscules et minuscules
+function calculateCasePoints(password) {
+    if(/[A-Z]{1,}/gm.test(password) && /[a-z]{1,}/gm.test(password)) {
+        return complexityPoints++;
+    }
+
+    return complexityPoints;
+}
+
+// Fonction pour calculer la complexité selon la présence ou non de chiffres
+function calculNumberPoints(password) {
+    if(/[0-9]{1,}/gm.test(password)) {
+        return complexityPoints++;
+    }
+
+    return complexityPoints;
+}
+
+
 // Fonction pour modifier la couleur de fond selon la complexité du mdp saisi
 function modifyBgColor() {
     switch (true) {
-        case (complexityPoints === 1) :
+        case (complexityPoints === 2 || complexityPoints === 3) :
             document.querySelector("body").classList.add("orange_gradient");
             document.querySelector("body").classList.remove("green_gradient");
             document.querySelector("body").classList.remove("red_gradient");
             break;
-        case (complexityPoints > 1) :
+        case (complexityPoints >= 4) :
             document.querySelector("body").classList.add("green_gradient");
             document.querySelector("body").classList.remove("orange_gradient");
             document.querySelector("body").classList.remove("red_gradient");
