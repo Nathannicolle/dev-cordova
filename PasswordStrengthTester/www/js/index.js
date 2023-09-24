@@ -1,3 +1,4 @@
+let complexityPoints = 0;
 document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
@@ -13,14 +14,13 @@ function initScript() {
     let passwordField = document.querySelector("#password");
 
     passwordField.addEventListener("input", () => {
-        let complexityPoints = 0;
+        complexityPoints = 0;
 
         calculateLengthPoints(passwordField.value);
         calculateSpecialCharactersPoints(passwordField.value);
         calculateCasePoints(passwordField.value);
         calculNumberPoints(passwordField.value);
         modifyBgColor();
-        console.log(complexityPoints);
     })
 }
 
@@ -37,7 +37,7 @@ function calculateLengthPoints(password) {
 
 // Fonction pour calculer la complexité selon la présence ou non de caractères spéciaux
 function calculateSpecialCharactersPoints(password) {
-    if(/[~@#_^*%.+:;=€$\\/]{1,}/gm.test(password)) {
+    if(/[~@#_^*%.+:;=€$!?\\/]{1,}/gm.test(password)) {
         return complexityPoints++;
     }
 
@@ -65,6 +65,7 @@ function calculNumberPoints(password) {
 
 // Fonction pour modifier la couleur de fond selon la complexité du mdp saisi
 function modifyBgColor() {
+    console.log(complexityPoints);
     switch (true) {
         case (complexityPoints === 2 || complexityPoints === 3) :
             document.querySelector("body").classList.add("orange_gradient");
