@@ -1,5 +1,10 @@
+// Variables declarations
 let complexityPoints = 0;
 let complexityMessage = document.querySelector("h3");
+let li_number_characters =  document.querySelector(".li_number_characters");
+let li_special_character = document.querySelector(".li_special_character");
+let li_case = document.querySelector(".li_case");
+let li_number = document.querySelector(".li_number");
 
 document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
@@ -30,8 +35,12 @@ function initScript() {
 function calculateLengthPoints(password) {
     if(password.length > 8) {
         complexityPoints++;
+        li_number_characters.classList.remove("not-validated");
+        li_number_characters.classList.add("validated");
     } else {
         complexityPoints = 0;
+        li_number_characters.classList.add("not-validated");
+        li_number_characters.classList.remove("validated");
     }
 
     return complexityPoints;
@@ -40,8 +49,14 @@ function calculateLengthPoints(password) {
 // Fonction pour calculer la complexité selon la présence ou non de caractères spéciaux
 function calculateSpecialCharactersPoints(password) {
     if(/[~@#_^*%.+:;=€$!?\\/]{1,}/gm.test(password)) {
+        li_special_character.classList.remove("not-validated");
+        li_special_character.classList.add("validated");
+
         return complexityPoints++;
     }
+
+    li_special_character.classList.add("not-validated");
+    li_special_character.classList.remove("validated");
 
     return complexityPoints;
 }
@@ -49,8 +64,14 @@ function calculateSpecialCharactersPoints(password) {
 // Fonction pour calculer la complexité selon la présence ou non de majuscules et minuscules
 function calculateCasePoints(password) {
     if(/[A-Z]{1,}/gm.test(password) && /[a-z]{1,}/gm.test(password)) {
+        li_case.classList.remove("not-validated");
+        li_case.classList.add("validated");
+
         return complexityPoints++;
     }
+
+    li_case.classList.add("not-validated");
+    li_case.classList.remove("validated");
 
     return complexityPoints;
 }
@@ -58,9 +79,14 @@ function calculateCasePoints(password) {
 // Fonction pour calculer la complexité selon la présence ou non de chiffres
 function calculNumberPoints(password) {
     if(/[0-9]{1,}/gm.test(password)) {
+        li_number.classList.remove("not-validated");
+        li_number.classList.add("validated");
+
         return complexityPoints++;
     }
 
+    li_number.classList.add("not-validated");
+    li_number.classList.remove("validated");
     return complexityPoints;
 }
 
