@@ -1,4 +1,6 @@
 let complexityPoints = 0;
+let complexityMessage = document.querySelector("h3");
+
 document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
@@ -65,22 +67,29 @@ function calculNumberPoints(password) {
 
 // Fonction pour modifier la couleur de fond selon la complexité du mdp saisi
 function modifyBgColor() {
-    console.log(complexityPoints);
+    complexityMessage.style.display = "initial";
+
     switch (true) {
         case (complexityPoints === 2 || complexityPoints === 3) :
             document.querySelector("body").classList.add("orange_gradient");
             document.querySelector("body").classList.remove("green_gradient");
             document.querySelector("body").classList.remove("red_gradient");
+
+            complexityMessage.innerHTML = "Difficulté du mot de passe : Moyenne";
             break;
         case (complexityPoints >= 4) :
             document.querySelector("body").classList.add("green_gradient");
             document.querySelector("body").classList.remove("orange_gradient");
             document.querySelector("body").classList.remove("red_gradient");
+
+            complexityMessage.innerHTML = "Difficulté du mot de passe : Bonne";
             break;
         default :
             document.querySelector("body").classList.add("red_gradient");
             document.querySelector("body").classList.remove("orange_gradient");
             document.querySelector("body").classList.remove("green_gradient");
+
+            complexityMessage.innerHTML = "Difficulté du mot de passe : Mauvaise";
             break;
     }
 }
