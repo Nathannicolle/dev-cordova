@@ -13,9 +13,13 @@ function init() {
 
     // Récupération de la liste des parkings
     fetch("https://data.twisto.fr/api/records/1.0/search/?dataset=parking_relais")
-        .then(function (response) {
+        .then((response) => {
             if(response.ok) {
-                console.log(response);
+                response.json().then((dataArray) => {
+                    dataArray.records.forEach((record) => {
+                        console.log(record.fields.nom);
+                    })
+                });
             } else {
                 document.querySelector(".error").innerHTML = "Erreur lors de la requête !";
             }
