@@ -1,8 +1,25 @@
 body {
-    background: #031321 !important;
+    background: #0569b0 !important;
     font-family: sans-serif !important;
 }
 
 h2 {
     text-align: center !important;
+}
+
+.parkingList {
+    display: flex;
+    justify-content: center;
+}
+
+.parking {
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 1%;
+    margin-right: 1%;
+    box-shadow: 5px 7px 3px black;
+}
+
+.parking:last-child {
+    margin-right: 0 !important;
 }
